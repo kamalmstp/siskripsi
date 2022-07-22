@@ -27,7 +27,7 @@
 @section('content')
     <!-- Page Content -->
     <div class="content">
-        <h2 class="content-heading">Persyaratan Skripsi</h2>
+        <h2 class="content-heading">Persyaratan Proposal</h2>
         <div class="alert alert-info d-flex align-items-center justify-content-between border-3x border-info"
              role="alert">
             <div class="flex-fill mr-3">
@@ -35,19 +35,21 @@
                     <i class="fa fa-fw fa-exclamation-circle"></i> Informasi
                 </h3>
                 <p class="mb-0">
-                    Silahkan unggah dokumen persyaratan untuk mengajukan Skripsi terlebih dahulu. <br>
-                    <u>Anda dapat mengajukan Skripsi, setelah Anda mengunggah semua dokumen persyaratan Skripsi di bawah
+                    Silahkan unggah dokumen persyaratan pengajuan Proposal <u>Dari tanggal <strong>{{date('d M Y',strtotime($deadline->time_start))." (".date('H:i',strtotime($deadline->time_start)).")"}}</strong> s/d <strong>{{ date('d M Y',strtotime($deadline->time_end))." (".date('H:i',strtotime($deadline->time_end)).")"}}</strong> </u> <br>
+                    <u>Anda dapat mengajukan Proposal, setelah Anda mengunggah semua dokumen persyaratan Proposal di bawah
                         ini.</u>
                 </p>
             </div>
         </div>
+        <!-- Form Unggah Persyaratan -->
+        @if($status_waktu == 'in-time')
         <div class="row row-deck">
             <div class="col-sm-7">
                 <div class="block block-rounded">
                     <div class="block-header block-header-default">
                         <h3 class="block-title">
                             <i class="fa fa-fw fa-upload text-muted mr-1"></i>
-                            Unggah Persyaratan Skripsi
+                            Unggah Persyaratan Proposal
                         </h3>
                     </div>
                     <div class="block-content">
@@ -138,6 +140,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
         @if($submission !== null)
             @if($submission->status === \App\Constants\Status::APPLY)
@@ -163,23 +166,52 @@
                             <i class="fa fa-fw fa-exclamation-circle"></i> Informasi
                         </h3>
                         <p class="mb-0 font-weight-bold">
-                            Selamat! dokumen persyaratan Skripsi yang Anda unggah telah diverifikasi oleh BAAK. Saat ini
+                            Selamat! dokumen persyaratan Proposal yang Anda unggah telah diverifikasi oleh BAAK. Saat ini
                             Anda dapat mengajukan porposal Skripsi.
                         </p>
                     </div>
                 </div>
+            @endif
+        @else
+            @if($status_waktu == 'before-time')
+                <div
+                    class="alert alert-warning d-flex align-items-center justify-content-between border-3x border-warning"
+                    role="alert">
+                    <div class="flex-fill mr-3">
+                        <h3 class="alert-heading font-size-h4 my-2">
+                            <i class="fa fa-fw fa-exclamation-circle"></i> Informasi Batas Waktu Pengajuan
+                        </h3>
+                        <p class="mb-0 font-weight-bold">
+                            Mohon Maaf. Untuk Persyaratan Proposal Belum Dimulai, Pengupload-an Persyaratan dimulai pada tanggal {{date('d M Y',strtotime($deadline->time_start))." (".date('H:i',strtotime($deadline->time_start)).")"}}. Terima kasih.
+                        </p>
+                    </div>
+                </div>
+            @elseif($status_waktu == 'after-time')
+                <div
+                    class="alert alert-warning d-flex align-items-center justify-content-between border-3x border-warning"
+                    role="alert">
+                    <div class="flex-fill mr-3">
+                        <h3 class="alert-heading font-size-h4 my-2">
+                            <i class="fa fa-fw fa-exclamation-circle"></i> Informasi Batas Waktu Pengajuan
+                        </h3>
+                        <p class="mb-0 font-weight-bold">
+                            Mohon Maaf. Batas Waktu Pengupload-an Persyaratan Proposal Melewati tanggal {{date('d M Y',strtotime($deadline->time_start))." (".date('H:i',strtotime($deadline->time_start)).")"}}. <br>
+                            Abaikan jika sudah melakukan Pengajuan. Terima kasih.
+                        </p>
+                    </div>
+                </div>
+            @endif
         @endif
-    @endif
 
-    <!-- Dynamic Table with Export Buttons -->
+        <!-- Daftar Dokumen Persyaratan Proposal -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
-                <h3 class="block-title">Daftar Dokumen Persyaratan Skripsi</h3>
+                <h3 class="block-title">Daftar Dokumen Persyaratan Proposal</h3>
                 <div class="block-options">
                     <button onclick="applyThesisRequirement()"
                             type="button"
                             class="btn btn-sm btn-primary"
-                            @if(!$submission || ($submission->status === \App\Constants\Status::APPLY || $submission->status === \App\Constants\Status::APPROVE) || $submission->details->count() < $thesisRequirements->count())
+                            @if(!$submission || ($submission->status === \App\Constants\Status::APPLY || $submission->status === \App\Constants\Status::APPROVE) || $submission->details->count() < $thesisRequirements->count() || $status_waktu === 'after_time' || $status_waktu === 'before_time')
                             disabled
                         @endif
                     >

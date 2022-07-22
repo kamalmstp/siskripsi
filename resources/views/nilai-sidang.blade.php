@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>TMS - Thesis Management System</title>
+    <title>FH - Sistem Informasi Skripsi</title>
 
-    <meta name="description" content="TMS - Thesis Management Information System at CIC University">
+    <meta name="description" content="FH - Sistem Informasi Skripsi">
     <meta name="author" content="Ahmad Hanafi">
     <meta name="robots" content="noindex, nofollow">
 

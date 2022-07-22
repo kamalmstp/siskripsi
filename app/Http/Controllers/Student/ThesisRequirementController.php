@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\SubmissionDetailsThesisRequirement;
 use App\Models\SubmissionThesisRequirement;
 use App\Models\ThesisRequirement;
+use App\Models\Deadline;
 use App\Constants\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +18,22 @@ class ThesisRequirementController extends Controller
 {
     public function index()
     {
+        $status_waktu = '';
         $nim = auth()->user()->registration_number;
         $submission = SubmissionThesisRequirement::with('details')->where('nim', $nim)->first();
+        $deadline = Deadline::where('form_name', 'thesis-requirement-submission')->where('status', 1)->first();
+        $now = date('Y-m-d H:i:s');
+
+        if ($now > ($deadline->time_start) && $now < ($deadline->time_end)) {
+            // echo 'Masih Bisa';
+            $status_waktu = 'in-time';
+        }else if($now < ($deadline->time_start)){
+            // echo 'Waktu Belum Mulai';
+            $status_waktu = 'before-time';
+        }else {
+            // echo 'Waktu Sudah Lewat';
+            $status_waktu = 'after-time';
+        }
 
         $thesisRequirements = ($submission)
             ? ThesisRequirement::all()->each(function ($requirement) use ($submission) {
@@ -29,7 +44,7 @@ class ThesisRequirementController extends Controller
             })
             : ThesisRequirement::all();
 
-        return viewStudent('thesis-requirement.index', compact('thesisRequirements', 'submission'));
+        return viewStudent('thesis-requirement.index', compact('thesisRequirements', 'submission', 'deadline', 'status_waktu'));
     }
 
     public function upload(Request $request)

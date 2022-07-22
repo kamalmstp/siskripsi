@@ -74,7 +74,7 @@
                                     @endif
                                 </td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td width="180">Program Aplikasi</td>
                                 <td>:</td>
                                 <td>
@@ -98,7 +98,7 @@
                                         -
                                     @endif
                                 </td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td width="180">Jurnal Penelitian</td>
                                 <td>:</td>
@@ -126,10 +126,10 @@
                                         <i class="fa fa-file-alt"></i>
                                         <span>Unggah Laporan</span>
                                     </button>
-                                    <button onclick="uploadApp()" type="button" class="btn btn-primary btn-sm">
+                                    <!-- <button onclick="uploadApp()" type="button" class="btn btn-primary btn-sm">
                                         <i class="fa fa-tools"></i>
                                         <span>Unggah Program</span>
-                                    </button>
+                                    </button> -->
                                     <button onclick="uploadJournal()" type="button" class="btn btn-primary btn-sm">
                                         <i class="fa fa-file-pdf"></i>
                                         <span>Unggah Jurnal</span>
@@ -293,7 +293,7 @@
                                 <div class="flex-fill mr-3">
                                     <p class="mb-0">
                                         <b>Format yang didukung adalah: <i>pdf, doc, docx, zip, rar.</i></b> <br>
-                                        Apabila Anda telah mengunggah laporan/program/jurnal sebelumnya, maka dokumen
+                                        Apabila Anda telah mengunggah laporan/jurnal sebelumnya, maka dokumen
                                         lama
                                         tersebut akan <b><u>dihapus dan diganti dengan dokumen terbaru</u></b> yang Anda
                                         unggah.

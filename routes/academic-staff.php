@@ -4,6 +4,7 @@ use App\Http\Controllers\AcademicStaff\AssessmentComponentController;
 use App\Http\Controllers\AcademicStaff\AssessmentScheduleController;
 use App\Http\Controllers\AcademicStaff\ExportController;
 use App\Http\Controllers\AcademicStaff\ThesisRequirementController;
+use App\Http\Controllers\AcademicStaff\FinalRequirementController;
 use App\Http\Controllers\AcademicStaff\UserController;
 use App\Http\Controllers\HomeController;
 use App\Models\User;
@@ -16,6 +17,8 @@ use App\Http\Controllers\AcademicStaff\ScienceFieldController;
 use App\Http\Controllers\AcademicStaff\StudentController;
 use App\Http\Controllers\AcademicStaff\StudyProgramController;
 use App\Http\Controllers\AcademicStaff\SubmissionThesisRequirementController;
+use App\Http\Controllers\AcademicStaff\SubmissionFinalRequirementController;
+use App\Http\Controllers\AcademicStaff\DeadlineController;
 
 Route::middleware('role:' . User::ACADEMIC_STAFF)
     ->prefix('academic-staff')
@@ -26,6 +29,8 @@ Route::middleware('role:' . User::ACADEMIC_STAFF)
         Route::group([
             'prefix' => 'master',
         ], function () {
+            Route::resource('deadline', DeadlineController::class);
+
             Route::resource('faculties', FacultyController::class)->except(['create', 'edit', 'show']);
             Route::resource('study-programs', StudyProgramController::class)->except(['create', 'edit', 'show']);
 
@@ -53,6 +58,17 @@ Route::middleware('role:' . User::ACADEMIC_STAFF)
         ])->name('thesis-requirement.submit-response');
 
         Route::resource('thesis-requirements', ThesisRequirementController::class);
+
+        //Persyaratan Sidang Akhir Skripsi
+        Route::get('/final-requirements/submission/{id}', [
+            SubmissionFinalRequirementController::class, 'show'
+        ])->name('final-requirement.submission.show');
+
+        Route::post('/final-requirements/submit-response/{id}', [
+            SubmissionFinalRequirementController::class, 'submitResponse'
+        ])->name('final-requirement.submit-response');
+
+        Route::resource('final-requirements', FinalRequirementController::class);
 
         //PENJADWALAN
         Route::prefix('assessment-schedules')

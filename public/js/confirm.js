@@ -98,6 +98,21 @@ let applyThesisRequirement = () => {
     });
 }
 
+let applyFinalRequirement = () => {
+    Swal.fire({
+        title: 'Konfirmasi',
+        text: 'Pastikan Anda telah mengecek ulang dokumen yang telah diunggah.',
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, Ajukan',
+        cancelButtonText: 'Batalkan',
+    }).then((value) => {
+        if (value.isConfirmed) {
+            document.querySelector("#form-apply").submit();
+        }
+    });
+}
+
 let truncateDataSet = () => {
     Swal.fire({
         title: 'Konfirmasi!',

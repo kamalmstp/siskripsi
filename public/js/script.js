@@ -31,6 +31,44 @@ const editFaculty = (facultyId, facultyCode, facultyName, deanCode) => {
     Dashmix.block('open', '#dm-add-server');
 }
 
+/* DEADLINE */
+const addDeadline = () => {
+    let blockTitle = document.querySelector("#dm-add-server h3.block-title");
+    blockTitle.textContent = 'Tambah Data';
+
+    let formDeadline = document.querySelector("#dm-add-server form");
+    formDeadline.setAttribute("method", "POST");
+
+    Dashmix.block('open', '#dm-add-server');
+}
+
+const editDeadline = (deadlineId, deadlineName, deadlineForm, timeStart, timeEnd, deadlineStatus) => {
+    let blockTitle = document.querySelector("#dm-add-server h3.block-title");
+    blockTitle.textContent = 'Edit Data';
+    let action = `/academic-staff/master/deadline/${deadlineId}`;
+
+    let formDeadline = document.querySelector("#dm-add-server form");
+    formDeadline.setAttribute("method", "POST");
+    formDeadline.setAttribute("action", action);
+
+    let inputDeadlineName = document.querySelector("#dm-add-server input[name=name]");
+    let inputDeadlineForm = document.querySelector("#dm-add-server select[name=form_name]");
+    let inputTimeStart = document.querySelector("#dm-add-server input[name=time_start]");
+    let inputTimeEnd = document.querySelector("#dm-add-server input[name=time_end]");
+    let inputDeadlineStatus = document.querySelector("#dm-add-server select[name=status]");
+    let inputMethod = document.querySelector("#dm-add-server input[name=_method]");
+
+    inputDeadlineName.value = deadlineName;
+    inputDeadlineForm.value = deadlineForm;
+    inputTimeStart.value = timeStart;
+    inputTimeEnd.value = timeEnd;
+    inputDeadlineStatus.value = deadlineStatus;
+    inputMethod.value = "PUT";
+
+
+    Dashmix.block('open', '#dm-add-server');
+}
+
 
 /* STUDY PROGRAM */
 const addStudyProgram = () => {
@@ -151,6 +189,64 @@ const editThesisRequirement = (thesisRequirementId, documentName, documentType, 
     let formThesisRequirement = document.querySelector("#dm-add-server form");
     formThesisRequirement.setAttribute("method", "POST");
     formThesisRequirement.setAttribute("action", action);
+
+    let inputDocumentName = document.querySelector("#dm-add-server input[name=document_name]");
+    let inputNote = document.querySelector("#dm-add-server input[name=note]");
+    let inputMethod = document.querySelector("#dm-add-server input[name=_method]");
+    let inputIsRequired = document.querySelector("#is-required");
+
+    const documentTypeOptions = document.querySelectorAll("#dm-add-server select[name=document_type] > option");
+    documentTypeOptions.forEach((opt, index) => {
+        (opt.value.toLowerCase() === documentType.toLowerCase()) ? opt.setAttribute('selected', 'selected') : (opt.hasAttribute('selected') ? opt.removeAttribute('selected') : '');
+    });
+
+    inputDocumentName.value = documentName;
+    inputNote.value = note;
+
+    if (parseInt(isRequired) === 1) {
+        inputIsRequired.setAttribute('checked', 'checked');
+    } else {
+        inputIsRequired.removeAttribute('checked');
+    }
+
+    inputMethod.value = "PUT";
+
+    Dashmix.block('open', '#dm-add-server');
+}
+
+const addFinalRequirement = () => {
+    let blockTitle = document.querySelector("#dm-add-server h3.block-title");
+    blockTitle.textContent = 'Tambah Data';
+
+    let formFinalRequirement = document.querySelector("#dm-add-server form");
+    formFinalRequirement.setAttribute("method", "POST");
+    formFinalRequirement.setAttribute("action", '/academic-staff/final-requirements');
+
+    let inputDocumentName = document.querySelector("#dm-add-server input[name=document_name]");
+    let inputNote = document.querySelector("#dm-add-server input[name=note]");
+    let inputMethod = document.querySelector("#dm-add-server input[name=_method]");
+    let inputIsRequired = document.querySelector("#is-required");
+
+    const documentTypeOptions = document.querySelectorAll("#dm-add-server select[name=document_type] > option");
+    documentTypeOptions.forEach((opt, index) => (opt.value === '') ? opt.setAttribute('selected', 'selected') : '');
+
+    inputDocumentName.value = '';
+    inputNote.value = '';
+    inputIsRequired.setAttribute('checked', 'checked');
+
+    inputMethod.value = "POST";
+
+    Dashmix.block('open', '#dm-add-server');
+}
+
+const editFinalRequirement = (finalRequirementId, documentName, documentType, isRequired, note) => {
+    let blockTitle = document.querySelector("#dm-add-server h3.block-title");
+    blockTitle.textContent = 'Edit Data';
+    let action = `/academic-staff/final-requirements/${finalRequirementId}`;
+
+    let formFinalRequirement = document.querySelector("#dm-add-server form");
+    formFinalRequirement.setAttribute("method", "POST");
+    formFinalRequirement.setAttribute("action", action);
 
     let inputDocumentName = document.querySelector("#dm-add-server input[name=document_name]");
     let inputNote = document.querySelector("#dm-add-server input[name=note]");

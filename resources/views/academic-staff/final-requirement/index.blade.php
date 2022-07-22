@@ -18,16 +18,16 @@
 @section('content')
     <!-- Page Content -->
     <div class="content">
-        <h2 class="content-heading">Persyaratan Proposal Skripsi</h2>
+        <h2 class="content-heading">Persyaratan Skripsi</h2>
         <!-- Dynamic Table with Export Buttons -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">
                     <i class="fa fa-fw fa-file-alt text-muted mr-1"></i>
-                    Dokumen Persyaratan Proposal
+                    Dokumen Persyaratan Skripsi
                 </h3>
                 <div class="block-options">
-                    <button type="button" class="btn btn-sm btn-primary" onclick="addThesisRequirement()">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="addFinalRequirement()">
                         <i class="fa fa-plus"></i>
                         <span>Tambah Data</span>
                     </button>
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="block-content block-content-full">
-                        <form action="{{ route('thesis-requirements.store') }}" method="POST">
+                        <form action="{{ route('final-requirements.store') }}" method="POST">
                             @csrf
                             @method('POST')
                             <div class="form-group row gutters-tiny mb-0 items-push">
@@ -124,7 +124,7 @@
                     </thead>
                     <tbody>
 
-                    @foreach ($thesisRequirements as $requirement)
+                    @foreach ($finalRequirements as $requirement)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ $requirement->document_name }}</td>
@@ -142,7 +142,7 @@
                                     <button type="button" class="btn btn-primary js-tooltip-enabled"
                                             data-toggle="tooltip"
                                             title=""
-                                            onclick="editThesisRequirement(
+                                            onclick="editFinalRequirement(
                                                 '{{ $requirement->id }}',
                                                 '{{ $requirement->document_name }}',
                                                 '{{ $requirement->document_type }}',
@@ -154,7 +154,7 @@
                                     </button>
                                     <button type="button" class="btn btn-danger js-tooltip-enabled"
                                             data-toggle="tooltip" title="" data-original-title="Delete"
-                                            onclick="confirmDelete('academic-staff/thesis-requirements', '{{ $requirement->id }}')"
+                                            onclick="confirmDelete('academic-staff/final-requirements', '{{ $requirement->id }}')"
                                     >
                                         <i class="fa fa-fw fa-trash"></i>
                                     </button>
@@ -169,29 +169,29 @@
         <!-- END Dynamic Table with Export Buttons -->
 
         <!-- Dynamic Table with Export Buttons -->
-        <h2 class="content-heading">Pengajuan Dokumen Persyaratan Proposal Mahasiswa</h2>
+        <h2 class="content-heading">Pengajuan Dokumen Persyaratan Skripsi Mahasiswa</h2>
         <div class="row">
             <div class="col-12">
                 <div class="block block-rounded">
                     <ul class="nav nav-tabs nav-tabs-block align-items-center">
                         <li class="nav-item">
                             <a class="nav-link {{ $status === 'unresponse' || $status === \App\Constants\Status::APPLY ? 'active' : '' }}"
-                               href="{{ route('thesis-requirements.index', ['status' => 'unresponse']) }}">BELUM
+                               href="{{ route('final-requirements.index', ['status' => 'unresponse']) }}">BELUM
                                 DIRESPONS</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ $status === 'approve' ? 'active' : '' }}"
-                               href="{{ route('thesis-requirements.index', ['status' => 'approve']) }}">DITERIMA</a>
+                               href="{{ route('final-requirements.index', ['status' => 'approve']) }}">DITERIMA</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ $status === 'reject' ? 'active' : '' }}"
-                               href="{{ route('thesis-requirements.index', ['status' => 'reject']) }}">DITOLAK</a>
+                               href="{{ route('final-requirements.index', ['status' => 'reject']) }}">DITOLAK</a>
                         </li>
                     </ul>
                     <div class="block-content tab-content">
                         <div class="tab-pane active" id="seminar" role="tabpanel">
                             <h4 class="font-w400">
-                                Daftar Pengajuan Persyaratan Proposal Yang {{ $status === 'unresponse' || $status === 'apply' ? 'BELUM DIRESPONS' : \App\Constants\Status::getLabel(strtoupper($status), true)  }}
+                                Daftar Pengajuan Persyaratan Skripsi Yang {{ $status === 'unresponse' || $status === 'apply' ? 'BELUM DIRESPONS' : \App\Constants\Status::getLabel(strtoupper($status), true)  }}
                             </h4>
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
@@ -208,7 +208,7 @@
                                     </thead>
                                     <tbody>
 
-                                    @foreach ($submissionThesisRequirements as $submission)
+                                    @foreach ($submissionFinalRequirements as $submission)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ $submission->student->nim }}</td>
@@ -216,14 +216,14 @@
                                             <td>{{ $submission->student->study_program->name }}</td>
                                             <td class="d-none d-sm-table-cell">
                                                 @foreach($submission->details as $detail)
-                                                    - {{ optional($detail->thesis_requirement)->document_name }}<br>
+                                                    - {{ optional($detail->final_requirement)->document_name }}<br>
                                                 @endforeach
                                             </td>
                                             <td class="text-center">{!! \App\Constants\Status::getLabel($submission->status) !!}</td>
                                             <td class="text-center">
                                                 <div class="btn-group btn-group-sm">
                                                     <x-button-link
-                                                        link="{{ route('thesis-requirement.submission.show', $submission->id) }}"
+                                                        link="{{ route('final-requirement.submission.show', $submission->id) }}"
                                                         icon="search"
                                                         type="secondary"
                                                         text="Detail"></x-button-link>

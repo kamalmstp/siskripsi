@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <title>TMS - Thesis Management System</title>
+    <title>FH - Sistem Informasi Skripsi</title>
 
-    <meta name="description" content="TMS - Thesis Management Information System at CIC University">
+    <meta name="description" content="FH - Sistem Informasi Skripsi">
     <meta name="author" content="Ahmad Hanafi">
     <meta name="robots" content="noindex, nofollow">
 
@@ -26,7 +26,7 @@
     <link rel="stylesheet" id="css-main" href="{{ asset('css/style.css') }}">
 
     <!-- You can include a specific file from public/css/themes/ folder to alter the default color theme of the template. eg: -->
-<!-- <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xwork.css') }}"> -->
+    <link rel="stylesheet" id="css-theme" href="{{ mix('css/themes/xdream.css') }}">
     @yield('css_after')
     <link rel="stylesheet" href="{{ asset('js/plugins/sweetalert2/sweetalert2.min.css') }}">
 

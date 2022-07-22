@@ -54,6 +54,13 @@
                 <a class="nav-main-link{{ request()->routeIs('thesis-requirements.*') ? ' active' : '' }}"
                    href="{{ route('thesis-requirements.index') }}">
                     <i class="nav-main-link-icon fa fa-file-alt"></i>
+                    <span class="nav-main-link-name">PERSYARATAN PROPOSAL</span>
+                </a>
+            </li>
+            <li class="nav-main-item">
+                <a class="nav-main-link{{ request()->routeIs('final-requirements.*') ? ' active' : '' }}"
+                   href="{{ route('final-requirements.index') }}">
+                    <i class="nav-main-link-icon fa fa-file-alt"></i>
                     <span class="nav-main-link-name">PERSYARATAN SKRIPSI</span>
                 </a>
             </li>
@@ -71,13 +78,13 @@
                     <span class="nav-main-link-name">KOMPONEN NILAI</span>
                 </a>
             </li>
-            <!--li class="nav-main-item">
+            <!-- <li class="nav-main-item">
                 <a class="nav-main-link{{ request()->routeIs('assessment-components.*') ? ' active' : '' }}"
                    href="{{ route('assessment-components.index') }}">
                     <i class="nav-main-link-icon fa fa-fw fa-edit"></i>
                     <span class="nav-main-link-name">DATA NILAI</span>
                 </a>
-            </li-->
+            </li> -->
             <!-- END DATA SKRIPSI -->
 
             <!-- PENGATURAN -->
@@ -87,6 +94,14 @@
                    href="{{ route('users.index') }}">
                     <i class="nav-main-link-icon fa fa-users-cog"></i>
                     <span class="nav-main-link-name">DATA PENGGUNA</span>
+                </a>
+            </li>
+
+            <li class="nav-main-item">
+                <a class="nav-main-link{{ request()->is('deadline/*') ? ' active' : '' }}"
+                   href="{{ route('deadline.index') }}">
+                    <i class="nav-main-link-icon fa fa-hourglass-half"></i>
+                    <span class="nav-main-link-name">BATAS WAKTU</span>
                 </a>
             </li>
             <!-- END PENGATURAN -->

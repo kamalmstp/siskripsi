@@ -31,12 +31,12 @@
                     <i class="fa fa-fw fa-list-alt text-muted mr-1"></i>
                     Data Program Studi
                 </h3>
-                <div class="block-options">
+                <!-- <div class="block-options">
                     <button type="button" class="btn btn-sm btn-primary" onclick="addStudyProgram()">
                         <i class="fa fa-plus"></i>
                         <span>Tambah Data</span>
                     </button>
-                </div>
+                </div> -->
             </div>
             <div class="overflow-hidden" style="padding-left: 1.25rem;padding-right: 1.25rem;margin-bottom: 0;padding-top: 1.25rem;">
                 <div id="dm-add-server" class="block block-rounded bg-body-dark animated fadeIn d-none mb-0">
@@ -149,12 +149,12 @@
                                     >
                                         <i class="fa fa-pencil-alt"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger js-tooltip-enabled"
+                                    <!-- <button type="button" class="btn btn-danger js-tooltip-enabled"
                                             data-toggle="tooltip" title="" data-original-title="Delete"
                                             onclick="confirmDelete('academic-staff/master/study-programs', '{{ $studyProgram->id }}')"
                                     >
                                         <i class="fa fa-fw fa-trash"></i>
-                                    </button>
+                                    </button> -->
                                 </div>
                             </td>
                         </tr>

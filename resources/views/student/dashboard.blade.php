@@ -86,7 +86,7 @@
             <div class="block-content text-center bg-primary-dark-op text-white-75 align-middle py-7">
                 <p class="font-weight-bold font-italic font-size-h3">
                     Selamat datang di Menu Utama Sistem Informasi <br>
-                    Manajemen Skripsi Universitas Catur Insan Cendekia
+                    Manajemen Skripsi Fakultas Hukum Universitas Lambung Mangkurat
                 </p>
             </div>
         </div>

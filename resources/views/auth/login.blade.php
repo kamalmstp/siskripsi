@@ -2,16 +2,16 @@
 
 @section('content')
     <div class="bg-image"
-         style="background-image: url({{ asset('media/photos/photo22@2x.jpg') }});">
-        <div class="row no-gutters bg-primary-op">
+         style="background-image: url({{ asset('media/photos/banner.jpg') }});">
+        <div class="row no-gutters">
             <!-- Main Section -->
             <div class="hero-static col-md-6 d-flex align-items-center bg-white">
                 <div class="p-4 p-lg-3 w-100">
                     <!-- Header -->
                     <div class="mb-3 text-center">
                         <a class="link-fx font-w700 font-size-h1" href="/">
-                            <span class="text-dark">TMS</span>
-                            <span class="text-primary">UCIC</span>
+                            <span class="text-dark">SISKRIPSI</span>
+                            <span class="text-primary">FH ULM</span>
                         </a>
                         <p class="text-uppercase font-w700 font-size-sm text-muted">Sign In</p>
                     </div>
@@ -73,12 +73,12 @@
             <div
                 class="hero-static col-md-6 d-none d-md-flex align-items-md-center justify-content-md-center text-md-center">
                 <div class="p-3">
-                    <p class="display-4 font-w700 text-white mb-3">
-                        Welcome to the future
+                    <!-- <p class="display-4 font-w700 text-white mb-3">
+                        Sistem Informasi Skripsi Fakultas Hukum ULM
                     </p>
                     <p class="font-size-lg font-w600 text-white-75 mb-0">
                         Copyright &copy; <span data-toggle="year-copy"></span>
-                    </p>
+                    </p> -->
                 </div>
             </div>
             <!-- END Meta Info Section -->

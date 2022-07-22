@@ -77,7 +77,7 @@ table tr td{
     <div id="card">
         <div id="card-header">
             <div class="card-logo">
-                <img src="{{ public_path('media/photos/ucic.png') }}" alt="">
+                <img src="{{ public_path('media/photos/logo-fh.png') }}" alt="">
             </div>
             <h3 class="card-title">KARTU BIMBINGAN SKRIPSI / TA</h3>
         </div>

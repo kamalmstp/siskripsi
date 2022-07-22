@@ -17,7 +17,7 @@
                         </h3>
                         <div class="block-options">
                             @if($submission->status === App\Constants\Status::WAITING || $submission->status === App\Constants\Status::APPLY)
-                                <form action="{{ route('thesis-requirement.submit-response', $submission->id) }}"
+                                <form action="{{ route('final-requirement.submit-response', $submission->id) }}"
                                       method="POST" id="submit-response">
                                     @csrf
                                     <button type="button" onclick="submitResponse('REJECT')"
@@ -30,11 +30,11 @@
                                         <i class="fa fa-check"></i>
                                         <span>Terima</span>
                                     </button>
-                                    <x-button-link link="{{ route('thesis-requirements.index') }}" text="Kembali"
+                                    <x-button-link link="{{ route('final-requirements.index') }}" text="Kembali"
                                                    icon="chevron-left" type="outline-primary btn-sm"></x-button-link>
                                 </form>
                             @else
-                                <x-button-link link="{{ route('thesis-requirements.index') }}" text="Kembali"
+                                <x-button-link link="{{ route('final-requirements.index') }}" text="Kembali"
                                                icon="chevron-left" type="outline-primary btn-sm"></x-button-link>
                             @endif
                         </div>
@@ -42,11 +42,11 @@
                     <div class="block-content block-content-full">
                         @if($submission->status === App\Constants\Status::APPROVE)
                             <x-alert type="success" icon="fa-check-circle" style="margin-top: 0;"
-                                     message="Pengajuan persyaratan proposal skripsi ini sudah <b>DISETUJUI</b> pada tanggal {{ $submission->response_date }}"
+                                     message="Pengajuan persyaratan skripsi ini sudah <b>DISETUJUI</b> pada tanggal {{ $submission->response_date }}"
                             ></x-alert>
                         @elseif($submission->status === App\Constants\Status::REJECT)
                             <x-alert type="danger" icon="fa-times-circle" style="margin-top: 0;"
-                                     message="Pengajuan persyaratan proposal skripsi ini <b>DITOLAK</b> pada tanggal {{ $submission->response_date }}"
+                                     message="Pengajuan persyaratan skripsi ini <b>DITOLAK</b> pada tanggal {{ $submission->response_date }}"
                             ></x-alert>
                         @endif
 
@@ -64,7 +64,7 @@
                             @forelse($submission->details as $detail)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }}</td>
-                                    <td>{{ optional($detail->thesis_requirement)->document_name }}</td>
+                                    <td>{{ optional($detail->final_requirement)->document_name }}</td>
                                     <td>{{ $detail->created_at }}</td>
                                     <td class="text-center">
                                 <div class="btn-group btn-group-sm">

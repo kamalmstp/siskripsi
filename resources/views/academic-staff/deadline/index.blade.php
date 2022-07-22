@@ -18,20 +18,20 @@
     <!-- Page Content -->
     <div class="content">
         <h2 class="content-heading">
-            Data Fakultas
+            Data Batas Waktu
         </h2>
         <!-- Dynamic Table with Export Buttons -->
         <div class="block block-rounded">
             <div class="block-header block-header-default">
                 <h3 class="block-title">
                     <i class="fa fa-fw fa-building text-muted mr-1"></i>
-                    Data Fakultas
+                    Data Batas Waktu
                 </h3>
                 <div class="block-options">
-                    <!-- <button type="button" class="btn btn-sm btn-primary" onclick="addFaculty()">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="addDeadline()">
                         <i class="fa fa-plus"></i>
                         <span>Tambah Data</span>
-                    </button> -->
+                    </button>
                 </div>
             </div>
             <div class="overflow-hidden" style="padding-left: 1.25rem;padding-right: 1.25rem;margin-bottom: 0;padding-top: 1.25rem;">
@@ -48,12 +48,12 @@
                         </div>
                     </div>
                     <div class="block-content block-content-full">
-                        <form action="{{ route('faculties.store') }}" method="POST">
+                        <form action="{{ route('deadline.store') }}" method="POST">
                             @csrf
                             @method('POST')
                             <div class="form-group row gutters-tiny mb-0 items-push">
-                                <div class="col-md-2">
-                                    <input type="text" class="form-control" name="faculty_code" value="{{ old('faculty_code') }}" placeholder="Kode Fakultas" autocomplete="off">
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Nama" autocomplete="off">
 
                                     @error('faculty_code')
                                         <span class="invalid-feedback" role="alert">
@@ -62,29 +62,41 @@
                                     @enderror
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" class="form-control" id="example-hosting-name" name="faculty_name" placeholder="Nama Fakultas" value="{{ old('faculty_name') }}">
+                                    <select class="custom-select" id="example-hosting-vps" name="form_name">
+                                        <option value="">-- Pilih Form --</option>
+                                        <option value="thesis-requirement-submission">Persyaratan Proposal</option>
+                                        <option value="final-requirement-submission">Persyaratan Skripsi</option>
+                                    </select>
 
-                                    @error('faculty_name')
+                                    @error('form_name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-                                <div class="col-md-4">
-                                    <select class="custom-select" id="example-hosting-vps" name="dean_code">
-                                        <option value="">-- Pilih Dekan --</option>
-                                        @foreach($lecturers as $lecturer)
-                                            <option value="{{ $lecturer->nidn }}">
-                                                {{ $lecturer->full_name }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                <div class="col-md-3">
+                                    <input type="datetime-local" class="form-control" id="example-hosting-name" name="time_start" placeholder="Waktu Mulai" value="{{ old('time_start') }}">
 
-                                    @error('dean_code')
+                                    @error('time_start')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="datetime-local" class="form-control" id="example-hosting-name" name="time_end" placeholder="Waktu Selesai" value="{{ old('time_end') }}">
+
+                                    @error('time_end')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="custom-select" id="example-hosting-vps" name="status">
+                                        <option value="1">Aktif</option>
+                                        <option value="0">Tidak Aktif</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-3">
                                     <button type="submit" class="btn btn-primary btn-block">
@@ -102,33 +114,36 @@
                 <table class="table table-bordered table-striped table-vcenter js-dataTable-full">
                     <thead>
                     <tr>
-                        <th class="text-center" style="width: 80px;">#</th>
-                        <th class="text-center" style="width: 100px;">Kode</th>
-                        <th>Nama Fakultas</th>
-                        <th class="d-none d-sm-table-cell" style="width: 30%;">Dekan</th>
+                        <th class="text-center" style="width: 5%;">#</th>
+                        <th class="text-center" style="width: 30%;">Nama</th>
+                        <th class="text-center" style="width: 25%;">Form</th>
+                        <th class="text-center" style="width: 25%;">Batas Waktu</th>
                         <th style="width: 15%;">Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    @foreach ($faculties as $faculty)
+                    @foreach ($deadline as $row)
                         <tr>
                             <td class="text-center">{{ $loop->iteration }}</td>
-                            <td class="text-center">{{ $faculty->faculty_code }}</td>
-                            <td class="font-w600">{{ $faculty->faculty_name }}</td>
-                            <td class="d-none d-sm-table-cell">{{ $faculty->dean_code }}</td>
+                            <td class="text-left">{{ $row->name }}</td>
+                            <td class="font-w600">{{ $row->form_name }}</td>
+                            <td class="text-center">
+                                Mulai : <strong>{{ date('d, M Y',strtotime($row->time_start))." (".date('H:i',strtotime($row->time_start)).")"}}</strong> <br>
+                                Sampai : <strong>{{ date('d, M Y',strtotime($row->time_end))." (".date('H:i',strtotime($row->time_end)).")"}}</strong>
+                            </td>
                             <td class="text-center">
                                 <div class="btn-group btn-group-sm">
                                     <button type="button" class="btn btn-primary js-tooltip-enabled"
-                                            data-toggle="tooltip" title="" onclick="editFaculty('{{ $faculty->id }}', '{{ $faculty->faculty_code }}', '{{ $faculty->faculty_name }}', '{{ $faculty->dean_code }}')" data-original-title="Edit">
+                                            data-toggle="tooltip" title="" onclick="editDeadline('{{ $row->id }}', '{{ $row->name }}', '{{ $row->form_name }}', '{{ $row->time_start }}', '{{ $row->time_end }}', '{{ $row->status }}')" data-original-title="Edit">
                                         <i class="fa fa-pencil-alt"></i>
                                     </button>
-                                    <!-- <button type="button" class="btn btn-danger js-tooltip-enabled"
+                                    <button type="button" class="btn btn-danger js-tooltip-enabled"
                                             data-toggle="tooltip" title="" data-original-title="Delete"
-                                            onclick="confirmDelete('academic-staff/master/faculties', '{{ $faculty->id }}')"
+                                            onclick="confirmDelete('academic-staff/master/deadline', '{{ $row->id }}')"
                                     >
                                         <i class="fa fa-fw fa-trash"></i>
-                                    </button> -->
+                                    </button>
                                 </div>
                             </td>
                         </tr>

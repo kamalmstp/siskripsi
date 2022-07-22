@@ -6,7 +6,7 @@
         <div class="bg-black-75">
             <div class="content content-full">
                 <div class="py-5 text-center">
-                    <a class="img-link" href="{{ url()->current() }}">
+                    <a class="img-link" href="#">
                         <img class="img-avatar img-avatar96 img-avatar-thumb"
                              src="{{ asset('media/avatars/avatar10.jpg') }}" alt="">
                     </a>
